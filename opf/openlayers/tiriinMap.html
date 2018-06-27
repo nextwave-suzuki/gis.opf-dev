@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>recipe01</title>　
+ 
+<!-- OpelLayesのライブラリを読み込み -->
+<script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
+ 
+<!-- 地図表示用スクリプト -->
+ 
+<script type="text/javascript">
+ 
+// 地図初期化
+function initMap(){
+    /* 座標変換用オブジェクト
+        地理院地図のタイルの座標系は世界測地系(WGS84 EPSG:3857)、
+        投影は球面メルカトル図法で作成されているため、これらを用いる */
+    var projection3857 = new OpenLayers.Projection("EPSG:3857");
+    var projection4326 = new OpenLayers.Projection("EPSG:4326");
+ 
+    // mapオブジェクトを作成。後で出てくるdiv要素のid="map"のところに表示されます。
+    var map = new OpenLayers.Map({
+        div: "map",
+        projection: projection3857, 
+        displayProjection: projection4326,
+    });
+ 
+    /*ベースのMapレイヤを作成 Open Street Mapの場合は以下、
+    var osm = new OpenLayers.Layer.OSM("Simple OSM BaseMap");
+        地理院地図の標準地図に置き換えた場合は以下*/
+    var cjstd = new OpenLayers.Layer.XYZ("標準地図", //XYZ形式（緯度、軽度、ズームレベル　レイヤ名を指定
+        "http://cyberjapandata.gsi.go.jp/xyz/std/${z}/${x}/${y}.png", {　//地理院地図のタイルを指定
+        attribution: "<a href='http://portal.cyberjapan.jp/help/termsofuse.html' target='_blank'>国土地理院</a>", //地理院地図の著作権表示
+        maxZoomLevel: 18 //省略すると15になったので指定する
+    });
+ 
+    //作成したベースレイヤをMapオブジェクトに追加する。
+    map.addLayer(cjstd);
+ 
+    //Mapオブジェクトにコントロールを追加　今回はレイヤスイッチのみ
+    map.addControl(new OpenLayers.Control.LayerSwitcher());
+ 
+    //Mapの中心（都庁）、初期ズームレベルを設定
+    map.setCenter(new OpenLayers.LonLat(139.691706,35.689487)
+      .transform(projection4326, projection3857), 15);
+}
+</script>
+ 
+<style>
+h1 {
+    font-size: 130%;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #fcb100;
+}
+#map {
+    width:100%;
+    height:600px;
+    border:1px solid #CCC;}
+ 
+/<em>地理院地図の著作権表示のスタイル</em>/
+div.olControlAttribution {
+    padding: 3px;
+    color:#000000;
+    background-color:#ffffff;
+    background-color:rgba(230,255,255,0.7);
+    font-size:12px;
+    line-height:14px;
+    bottom:5px;
+    vertical-align: middle;
+}
+</style>
+</head>
+<!-- body読み込み時にinitMapを実行します。 -->
+<body onload="initMap()">
+    <h1>Recipe 1：地理院地図 標準地図の表示例</h1>
+    <!-- ここに地図が表示されます。 -->
+    <div id="map"></div>
+    </body>
+</head>
+</html>

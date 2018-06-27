@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GSI Tiles on Leaflet</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+
+<style>
+  body {padding: 0; margin: 0}
+  html, body, #map {height: 100%; width: 100%;}
+</style>
+</head>
+
+<body>
+<div id="map"></div>
+<script>
+var map = L.map('map');
+
+L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+  attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>?n???@?^?C??</a>"
+}).addTo(map);
+
+//マーカー
+var marker = L.marker([43.052454, 141.359174])
+	.bindPopup("<h3>ビットスター㈱</h3><a href='https://bitstar.jp/' target='_blank'>https://bitstar.jp/</a>")
+	.addTo(map);
+var marker = L.marker([43.057359,141.333768])
+	.bindPopup("<h3>㈱ネクストウェーブ</h3><a href='http://www.next-wave.co.jp/' target='_blank'>http://www.next-wave.co.jp/</a>")
+	.addTo(map);
+
+map.setView([43.052454, 141.359174], 12);
+</script>
+</body>
+</html>
