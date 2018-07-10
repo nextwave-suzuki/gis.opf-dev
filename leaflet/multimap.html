@@ -88,6 +88,86 @@
     //var g_roadmap = new L.Google('ROADMAP');
     //var g_satellite = new L.Google('SATELLITE');
     //var g_hybrid = new L.Google('HYBRID');
+
+    var over_osm = new  L.tileLayer(
+    	'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    	{
+    		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    		opacity:0.5
+    	});
+    var over_osm_vec = new  L.tileLayer(
+    	'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    	{
+    		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    		opacity:0.5
+    	});
+
+    /**********************************************************
+     * 国土地理院地図
+     **********************************************************/	
+    var over_gsi_toti = new  L.tileLayer(
+    	'https://https://cyberjapandata.gsi.go.jp/xyz/lum200k/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>',
+    		opacity:0.5
+    	});
+    var over_gsi_hyo = new  L.tileLayer(
+    	'https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>',
+    		opacity:0.5
+    	});
+    var over_gsi_ana = new  L.tileLayer(
+    	'https://cyberjapandata.gsi.go.jp/xyz/anaglyphmap_gray/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>',
+    		opacity:0.5
+    	});
+
+    var over_gsi_syokuA = new  L.tileLayer(
+    	'https://cyberjapandata.gsi.go.jp/xyz/ndvi_250m_2017_07/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>',
+    		opacity:0.5
+    	});
+    var over_gsi_syokuB = new  L.tileLayer(
+    	'https://cyberjapandata.gsi.go.jp/xyz/gmld_ptc2/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>',
+    		opacity:0.5
+    	});
+    var over_gsi_jiki = new  L.tileLayer(
+    	'https://cyberjapandata.gsi.go.jp/xyz/jikizu2015_chijiki_d/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>',
+    		opacity:0.5
+    	});
+
+    /**********************************************************
+     * OpenWeatherMap 
+     **********************************************************/	
+    var pf = new  L.tileLayer(
+    	'https://tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="">降水予測<a>',
+    		opacity:0.8
+    	});
+    	
+    var cf = new  L.tileLayer(
+    	'http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="">雲の予測</a>',
+    		opacity:0.8
+    	});
+    	
+    var pcf = new  L.tileLayer(
+	'http://{s}.tile.openweathermap.org/map/pressure_cntr/{z}/{x}/{y}.png',
+	{
+		attribution: '<a href="">気圧図</a>',
+		opacity:1
+	});
+    // OWN end	
+
     var map = L.map('map', {
       center: [43.052454, 141.359174],
       zoom: 12,
@@ -98,6 +178,8 @@
     // 索引図
     //var t_pale_mini = new L.tileLayer('http://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png');
     //var miniMap = new L.Control.MiniMap(t_pale_mini, { toggleDisplay: true }).addTo(map);
+    
+    //ベースレイヤーグループ化
     var baseLayer = {
       "OpenStreetMap": t_osm,
       "mapbox.streets": t_srt,
@@ -113,7 +195,21 @@
       //"GoogleMap オルソ": g_satellite,
       //"GoogleMap ハイブリッド": g_hybrid,
     };
-    L.control.layers(baseLayer, null, {
+    //オーバレイヤーグループ化
+    var overlayMaps = {
+    	"OpenStreetMap(ラスタ)": over_osm,
+    	"OpenStreetMap(ベクタ)調査中": over_osm_vec,
+    	"地理院地図 色別標高図5-15": over_gsi_hyo,
+    	"地理院地図 アナグリフ2-16": over_gsi_ana,
+    	"地理院地図 植生（樹木被覆率）0-7": over_gsi_syokuB,
+    	"地理院地図 磁気図4-8": over_gsi_jiki,
+    	"雲の予測-サービス終了": cf,
+	"降水予測-サービス終了": pf,
+	"気圧図-サービス終了": pcf,
+    };
+
+    //レイヤーコントロール追加
+    L.control.layers(baseLayer, overlayMaps, {
       collapsed: true
     }).addTo(map);
 
