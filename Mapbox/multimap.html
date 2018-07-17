@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>地図切り替え</title>
+
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+  <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+  <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+
+
+  <style type="text/css">
+            html, body, #map {
+              width: 100%;
+              height: 100%;
+              margin: 0;
+            }
+
+
+    .actions {
+      display: inline-block;
+      cursor: pointer;
+      text-decoration: none;
+      color: black;
+      font-family: 'Helvetica Neue';
+      font-size: 12px;
+      background: -webkit-linear-gradient(top, #fff 0%, #f0f0f0 100%);
+      background: linear-gradient(to bottom, #fff 0%, #f0f0f0 100%);
+      border: 1px solid #ccc;
+      box-shadow: 0 -1px 0 rgba(255, 255, 255, 1) inset;
+      margin: 0.3em 0;
+      padding: 1em;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+  <!-- input type="file" のデザイン変更は右参照 http://var.blog.jp/archives/57292423.html -->
+
+  <script type="text/javascript">
+    // 地図レイヤの準備
+    var osmAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
+
+    var t_osm = new L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+    var t_srt = new L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+      id: 'mapbox.streets',
+    });
+    var t_pale = new L.tileLayer('http://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
+      attribution: "<a href='http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html' target='_blank'>国土地理院</a>"
+    });
+    var t_std = new L.tileLayer('http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+      attribution: "<a href='http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html' target='_blank'>国土地理院</a>"
+    });
+    var t_ort = new L.tileLayer('http://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg', {
+      attribution: "<a href='http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html' target='_blank'>国土地理院</a>"
+    });
+    var t_mem = new L.tileLayer('https://tile.mierune.co.jp/mierune_mono/{z}/{x}/{y}.png', {
+    attribution: "Maptiles by <a href='http://mierune.co.jp/' target='_blank'>MIERUNE</a>, under CC BY. Data by <a href='http://osm.org/copyright' target='_blank'>OpenStreetMap</a> contributors, under ODbL."
+    });
+    var t_ocm = new L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+      attribution: 'Maps &copy; <a href="https://www.thunderforest.com">Thunderforest</a>, Data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    });
+    var t_tpt = new L.tileLayer('https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}{r}.png', {
+      attribution: 'Maps &copy; <a href="https://www.thunderforest.com">Thunderforest</a>, Data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    });
+    var t_lsp = new L.tileLayer('https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}{r}.png', {
+      attribution: 'Maps &copy; <a href="https://www.thunderforest.com">Thunderforest</a>, Data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+    });
+    var t_ewi = new L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+    });
+    // google map
+    //var g_roadmap = new L.Google('ROADMAP');
+    //var g_satellite = new L.Google('SATELLITE');
+    //var g_hybrid = new L.Google('HYBRID');
+
+    var over_osm = new  L.tileLayer(
+    	'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    	{
+    		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    		opacity:0.5
+    	});
+    var over_osm_vec = new  L.tileLayer(
+    	'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    	{
+    		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    		opacity:0.5
+    	});
+
+    /**********************************************************
+     * 国土地理院地図
+     **********************************************************/	
+    var over_gsi_toti = new  L.tileLayer(
+    	'https://https://cyberjapandata.gsi.go.jp/xyz/lum200k/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>',
+    		opacity:0.5
+    	});
+    var over_gsi_hyo = new  L.tileLayer(
+    	'https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>',
+    		opacity:0.5
+    	});
+    var over_gsi_ana = new  L.tileLayer(
+    	'https://cyberjapandata.gsi.go.jp/xyz/anaglyphmap_gray/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>',
+    		opacity:0.5
+    	});
+
+    var over_gsi_syokuA = new  L.tileLayer(
+    	'https://cyberjapandata.gsi.go.jp/xyz/ndvi_250m_2017_07/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>',
+    		opacity:0.5
+    	});
+    var over_gsi_syokuB = new  L.tileLayer(
+    	'https://cyberjapandata.gsi.go.jp/xyz/gmld_ptc2/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>',
+    		opacity:0.5
+    	});
+    var over_gsi_jiki = new  L.tileLayer(
+    	'https://cyberjapandata.gsi.go.jp/xyz/jikizu2015_chijiki_d/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>',
+    		opacity:0.5
+    	});
+
+    /**********************************************************
+     * OpenWeatherMap 
+     **********************************************************/	
+    var pf = new  L.tileLayer(
+    	'https://tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="">降水予測<a>',
+    		opacity:0.8
+    	});
+    	
+    var cf = new  L.tileLayer(
+    	'http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png',
+    	{
+    		attribution: '<a href="">雲の予測</a>',
+    		opacity:0.8
+    	});
+    	
+    var pcf = new  L.tileLayer(
+	'http://{s}.tile.openweathermap.org/map/pressure_cntr/{z}/{x}/{y}.png',
+	{
+		attribution: '<a href="">気圧図</a>',
+		opacity:1
+	});
+    // OWN end	
+
+    var map = L.map('map', {
+      center: [43.052454, 141.359174],
+      zoom: 12,
+      zoomControl: true,
+      layers: [t_osm]
+    });
+
+    // 索引図
+    //var t_pale_mini = new L.tileLayer('http://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png');
+    //var miniMap = new L.Control.MiniMap(t_pale_mini, { toggleDisplay: true }).addTo(map);
+    
+    //ベースレイヤーグループ化
+    var baseLayer = {
+      "OpenStreetMap": t_osm,
+      "mapbox.streets": t_srt,
+      "地理院地図 淡色": t_pale,
+      "地理院地図 標準": t_std,
+      "地理院地図 オルソ": t_ort,
+      "MIERUNE地図 モノクロ": t_mem,
+      "OpenCycleMap": t_ocm,
+      "transport": t_tpt,
+      "landscape": t_lsp,
+      "Esri.WorldImagery": t_ewi,
+      //"GoogleMap 標準": g_roadmap,
+      //"GoogleMap オルソ": g_satellite,
+      //"GoogleMap ハイブリッド": g_hybrid,
+    };
+    //オーバレイヤーグループ化
+    var overlayMaps = {
+    	"OpenStreetMap(ラスタ)": over_osm,
+    	"OpenStreetMap(ベクタ)調査中": over_osm_vec,
+    	"地理院地図 色別標高図5-15": over_gsi_hyo,
+    	"地理院地図 アナグリフ2-16": over_gsi_ana,
+    	"地理院地図 植生（樹木被覆率）0-7": over_gsi_syokuB,
+    	"地理院地図 磁気図4-8": over_gsi_jiki,
+    	"雲の予測-サービス終了": cf,
+	"降水予測-サービス終了": pf,
+	"気圧図-サービス終了": pcf,
+    };
+
+    //レイヤーコントロール追加
+    L.control.layers(baseLayer, overlayMaps, {
+      collapsed: true
+    }).addTo(map);
+
+	var marker = L.marker([43.052091, 141.359434])
+	.bindPopup("<h3>ビットスター㈱</h3><a href='https://bitstar.jp/' target='_blank'>https://bitstar.jp/</a>")
+	.addTo(map);
+	var marker = L.marker([43.057359,141.333768])
+	.bindPopup("<h3>㈱ネクストウェーブ</h3><a href='http://www.next-wave.co.jp/' target='_blank'>http://www.next-wave.co.jp/</a>")
+	.addTo(map);
+    
+
+  </script>
+
+</body>
+
+</html>
