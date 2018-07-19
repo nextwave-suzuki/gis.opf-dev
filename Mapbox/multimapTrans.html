@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+    <head>
+    <title>地理院地図とOSM透過</title>
+    <meta charset="shift-jis" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+
+    <script src="js/MapContens.js"></script>
+    <script src="js/OpacityLayers.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./css/opfmaps.css" />
+
+    <!-- ページ全体地図 -->
+    <style>
+      html, body, #map {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+    </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <script>
+            /*
+            std    
+            pale   
+            blank  
+            english
+            relief 
+            ort    
+            gazo1  
+            gazo2  
+            gazo3  
+            gazo4  
+            */
+            var ort = L.gsiLayer('ort');
+            var esr = L.gsiLayer('esr');
+            //var pale = L.gsiLayer('pale');
+            //var blank = L.gsiLayer('blank');
+            //var english = L.gsiLayer('english');
+            //var relief = L.gsiLayer('relief');
+            var std = L.gsiLayer('std');
+            var osm = L.gsiLayer('osm');
+            //var gazo1 = L.gsiLayer('gazo1');
+            //var gazo2 = L.gsiLayer('gazo2');
+            //var gazo3 = L.gsiLayer('gazo3');
+            //var gazo4 = L.gsiLayer('gazo4');
+
+            var map = L.map('map', {
+                center: new L.LatLng(43.052454, 141.359174),
+                zoom: 12,
+                layers: [ort]
+            });
+
+            var baseMaps = {};
+            baseMaps[ort.discription] = ort;
+            baseMaps[esr.discription] = esr;
+            //baseMaps[pale.discription] = pale;
+            //baseMaps[blank.discription] = blank;
+            //baseMaps[english.discription] = english;
+            //baseMaps[relief.discription] = relief;
+
+            var overlay = {};
+            overlay[osm.discription] = osm;
+            overlay[std.discription] = std;
+            //overlay[jiki.discription] = jiki;
+            //overlay[gazo1.discription] = gazo1;
+            //overlay[gazo2.discription] = gazo2;
+            //overlay[gazo3.discription] = gazo3;
+            //overlay[gazo4.discription] = gazo4;
+
+            L.control.opacityLayers(baseMaps, overlay).addTo(map);
+
+            function range_onchange(){
+                var a = document.getElementsByName('range');
+                alert(a.range.value);
+            }
+    
+        </script>
+
+        <label>レンジ（type="range"）:<input type="range" name="range" onchange="range_onchange();"></label>
+    </body>
+</html>
