@@ -9,7 +9,7 @@ L.Control.OpacityLayers = L.Control.Layers.extend({
         input.type = 'range';
         input.min = 0;
         input.max = 100;
-        input.value = 50;
+        input.value = 80;
         input.layerId = L.stamp(obj.layer);
         if (this._map.hasLayer(obj.layer)) {
             input.style.display = 'block';
@@ -43,7 +43,7 @@ L.Control.OpacityLayers = L.Control.Layers.extend({
 
             if (obj === undefined) {
                 continue;
-            }else if (input.type == 'range' && this._map.hasLayer(obj.layer)) {
+            } else if (input.type == 'range' && this._map.hasLayer(obj.layer)) {
                 input.style.display = 'block';
                 obj.layer.setOpacity(input.value / 100.0);
                 continue;

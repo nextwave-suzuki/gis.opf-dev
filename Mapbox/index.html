@@ -15,117 +15,244 @@
 
     <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
     <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
-    <!--
+   
     <link rel="stylesheet" type="text/css" href="./js.lib/jquery/jquery-ui.min.css" />
     <script type="text/javascript" src="./js.lib/jquery/jquery-1.11.1.min.js"></script>
-    -->    
+    
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="css/L.Control.SlideMenu.css" />
     <script src="js.lib/L.Control.SlideMenu.js"></script>
 
-<!--
-    <link rel='stylesheet' href='css/easy-button.css' />
-    <script src='js.lib/easy-button.js'></script>
--->
+    <!--
+        <link rel='stylesheet' href='css/easy-button.css' />
+        <script src='js.lib/easy-button.js'></script>
+    -->
+    <!--
+        <script type="text/javascript" src="js/opfmaps.js"></script>
+        <link rel="stylesheet" type="text/css" href="./css/opfmaps.css" />
+    -->
+    <script src="js/MapContens.js"></script>
+    <script src="js/OpacityLayers.js"></script>
+
+    <!--<script src="https://d3js.org/d3.v5.min.js"></script>-->
+
+    <link rel="stylesheet" type="text/css" href="./css/opfmaps.css" />
 <!--
     <script type="text/javascript" src="js/opfmaps.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/opfmaps.css" />
 -->
-    <script type="text/javascript" src="js/MapContens.js"></script>
-    <script type="text/javascript" src="js/OpacityLayers.js"></script>
-
-    <script type="text/javascript" src="js/opfmaps.js"></script>
-    <link rel="stylesheet" type="text/css" href="./css/opfmaps.css" />
-
 </head>
 
 <body>
 
     <div id="map"></div>
     <script>
-    /*
-    std
-    pale
-    blank
-    english
-    relief
-    ort
-    gazo1
-    gazo2
-    gazo3
-    gazo4
-    */
-    var ort = L.gsiLayer('ort');
-    var esr = L.gsiLayer('esr');
-    //var pale = L.gsiLayer('pale');
-    //var blank = L.gsiLayer('blank');
-    //var english = L.gsiLayer('english');
-    //var relief = L.gsiLayer('relief');
-    var std = L.gsiLayer('std');
-    var osm = L.gsiLayer('osm');
-    //var gazo1 = L.gsiLayer('gazo1');
-    //var gazo2 = L.gsiLayer('gazo2');
-    //var gazo3 = L.gsiLayer('gazo3');
-    //var gazo4 = L.gsiLayer('gazo4');
 
-    var map = L.map('map', {
-        center: new L.LatLng(43.052454, 141.359174),
-        zoom: 12,
-        layers: [ort]
-    });
+        // 背景図
+        var baseMaps = {};
+        var ort = L.gsiLayer('ort');
+        baseMaps[ort.discription] = ort;
+        var esr = L.gsiLayer('esr');
+        baseMaps[esr.discription] = esr;
+        var osm = L.gsiLayer('osm');
+        baseMaps[osm.discription] = osm;
+        var gsi_std = L.gsiLayer('gsi_std');
+        baseMaps[gsi_std.discription] = gsi_std;
+        
+        // オーバーレイ
+        var overlay = {};
+        var osm = L.gsiLayer('osm');
+        overlay[osm.discription] = osm;
+        var gsi_std = L.gsiLayer('gsi_std');
+        overlay[gsi_std.discription] = gsi_std;       
+            //var gsi_ccm1 = L.gsiLayer('gsi_ccm1');//表示されない
+            //overlay[gsi_ccm1.discription] = gsi_ccm1;
+        var gsi_lakedata = L.gsiLayer('gsi_lakedata');
+        overlay[gsi_lakedata.discription] = gsi_lakedata;
+        var gsi_afm = L.gsiLayer('gsi_afm');
+        overlay[gsi_afm.discription] = gsi_afm;
+        var gsi_lcmfc2 = L.gsiLayer('gsi_lcmfc2');
+        overlay[gsi_lcmfc2.discription] = gsi_lcmfc2;
+        var gsi_lum4bl_capital = L.gsiLayer('gsi_lum4bl_capital');
+        overlay[gsi_lum4bl_capital.discription] = gsi_lum4bl_capital;      
+        var gsi_relief = L.gsiLayer('gsi_relief');
+        overlay[gsi_relief.discription] = gsi_relief;
+        var gsi_anaglyphmap_gray = L.gsiLayer('gsi_anaglyphmap_gray');
+        overlay[gsi_anaglyphmap_gray.discription] = gsi_anaglyphmap_gray;
+        var gsi_gmld_ptc2 = L.gsiLayer('gsi_gmld_ptc2');
+        overlay[gsi_gmld_ptc2.discription] = gsi_gmld_ptc2;
+        var gsi_jikizu2015_chijiki_d = L.gsiLayer('gsi_jikizu2015_chijiki_d');
+        overlay[gsi_jikizu2015_chijiki_d.discription] = gsi_jikizu2015_chijiki_d;
+        var nasa_Temp = L.gsiLayer('nasa_Temp');
+        overlay[nasa_Temp.discription] = nasa_Temp;
+        var nasa_Snow = L.gsiLayer('nasa_Snow');
+        overlay[nasa_Snow.discription] = nasa_Snow;
+        var nasa_Aerosol = L.gsiLayer('nasa_Aerosol');
+        overlay[nasa_Aerosol.discription] = nasa_Aerosol;
+        var nasa_Chlorophyll = L.gsiLayer('nasa_Chlorophyll');
+        overlay[nasa_Chlorophyll.discription] = nasa_Chlorophyll;
 
-    var baseMaps = {};
-    baseMaps[ort.discription] = ort;
-    baseMaps[esr.discription] = esr;
-    //baseMaps[pale.discription] = pale;
-    //baseMaps[blank.discription] = blank;
-    //baseMaps[english.discription] = english;
-    //baseMaps[relief.discription] = relief;
+        // geojson
+        //var json = L.jsonLayer('ike');
+        /*
+        var counties = $.ajax({
+            url: 'https://dev.samai.net/api/v1.1/poljp/18/234003/96270.geojson',
+            dataType: 'json',
+            success: console.log("County data successfully loaded."),
+            error: function (xhr) {
+                alert(xhr.statusText)
+            }
+        })
 
-    var overlay = {};
-    overlay[osm.discription] = osm;
-    overlay[std.discription] = std;
-    //overlay[jiki.discription] = jiki;
-    //overlay[gazo1.discription] = gazo1;
-    //overlay[gazo2.discription] = gazo2;
-    //overlay[gazo3.discription] = gazo3;
-    //overlay[gazo4.discription] = gazo4;
+        $.when(counties).done(function () {
+            json = L.geoJSON(counties.responseJSON);
+            overlay['json'] = json;
+            // レイヤー設定
+            L.control.opacityLayers(baseMaps, overlay).addTo(map);
+        });
+        */
+        /*
+        var geojsonFeature = [
+            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [141.359174, 43.052454] }, "properties": { "name": "森美術館" } }
+        ];
+        var json = L.geoJson(geojsonFeature);
+        overlay['ファイト'] = json;
+        var geojsonFeature = [
+            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [141.359174, 43.052454] }, "properties": { "name": "森美術館" } }
+        ];
+        var json = L.geoJson(geojsonFeature);
+        overlay['一発'] = json;
+        */
+        //json.setOpacity(50);
+        /*var options = L.setOptions(json, {
+            attribution: '一発',
+            maxZoom: 20,
+            //maxNativeZoom: type.max,
+            //minZoom: type.min,
+            errorTileUrl: 'img/nodata.gif'
+        });
+        L.TileLayer.prototype.initialize.call(json, '', options);*/
+        
+        // 全体地図
+        var map = L.map('map', {
+            center: new L.LatLng(43.052454, 141.359174),
+            zoom: 12,
+            layers: [ort]
+        });
+        
+        // レイヤー設定
+        //L.control.opacityLayers(baseMaps, overlay).addTo(map);
 
-    L.control.opacityLayers(baseMaps, overlay).addTo(map);
+        /*
+        var counties = $.ajax({
+            url: "https://dev.samai.net/api/v1.1/poljp/18/234003/96270.geojson",
+            dataType: "json",
+            success: console.log("County data successfully loaded."),
+            error: function (xhr) {
+                alert(xhr.statusText)
+            }
+        })
+        $.when(counties).done(function () {
+            overlay['リポビタン'] = L.geoJSON(counties.responseJSON);
+            // レイヤー設定
+            L.control.opacityLayers(baseMaps, overlay).addTo(map);
+        });
+        */
+        /*
+        var geojsonLayerWells = new L.GeoJSON();
+        function loadGeoJson(data) {
+            console.log(data);
+            geojsonLayerWells.addData(data);
+        };
+
+        $.ajax({
+            url: geoJsonUrl,
+            dataType: 'jsonp',
+            success: loadGeoJson
+        });
+        */
+        /*
+        var json = L.uGeoJSONLayer({
+            endpoint: "https://dev.samai.net/api/v1.1/poljp/18/234003/96270.geojson"
+        });
+        */
+        //overlay['リポビタン'] = json;
+       
+        //ベクトルタイル設定
+        /*var vec = new L.TileLayer.d3GeoJSON(
+            "http://cyberjapandata.gsi.go.jp/xyz/experimental_rdcl/{z}/{x}/{y}.geojson",
+            {
+                "attr": {
+                    "class": function (d) {
+                        return d.properties.rID;
+                    },
+                    "stroke-width": 4,
+                    "stroke": "black"
+                },
+                "style": {
+                    "cursor": "pointer"
+                },
+                "layerName": "vectile",
+                "onClick": function (d) {
+                    alert(JSON.stringify(d.properties, null, " "));
+                }
+            }
+        );
+        overlay['a'] = vec;*/
+
+        //$.getJSON('https://img.opf-dev.jp/api/v1.1/jpborders/{z}/{x}/{y}.geojson', function (data) {
+        $.getJSON('https://dev.samai.net/api/v1.1/poljp/18/234003/96270.geojson', function (data) {
+            var json = L.geoJson(data, {
+                onEachFeature: function (feature, layer) {
+                    var field = '名称: ' + '' + '<br>' +
+                    '住所: ' + '' + '<br>' +
+                    '電話番号: ' + '' + '<br>' +
+                    '<a href="' + '' + '" target="_blank">ホームページ</a>';
+
+                    layer.bindPopup(field);
+                }
+            });
+            overlay['GeoJSONファイル'] = json;
+            // レイヤー設定
+            L.control.opacityLayers(baseMaps, overlay).addTo(map);
+        });
+
+            // レイヤー設定
+        //L.control.opacityLayers(baseMaps, overlay).addTo(map);
 
 
+        map.zoomControl.setPosition('topright');
+        // スライダーバーメニュー
+        var header = '<h1 class="cstm-slidmenu-header">メニュー</h1>';
+        var contents = '<ul class="cstm-slidmenu-content">';
+        contents += '<li><i class=""></i><a href="/index.html">2D</a></li>';
+        //contents += '<li><i class=""></i><a href="/index3d.html">3D</a></li>';
+        //contents += '<li><i class="fab fa-github"></i><a href="https://bitstar.jp/" target="_blank">ビットスター</a></li>';
+        contents += '</ul>';
 
-
-
-    // Slide Menu Content Html
-    var header = '<h1 class="cstm-slidmenu-header">メニュー</h1>';
-    var contents = '<ul class="cstm-slidmenu-content">';
-    contents += '<li><i class="fab fa-github"></i><a href="https://bitstar.jp/" target="_blank">ビットスター</a></li>';
-    contents += '</ul>';
-
-    // SlideMenu
-    var sldMenuOpt = {
-        width: '200px',
-        height: '95%'
-    }
-    L.control.slideMenu(header + contents, sldMenuOpt).addTo(map);
-
-    /*
-    L.easyButton('idbtn', function (btn, easyMap) {
-        //popup.setLatLng(easyMap.getCenter()).openOn(easyMap);
-    }).addTo(map);
-    L.easyButton('idbtn', function (btn, easyMap) {
-        //popup.setLatLng(easyMap.getCenter()).openOn(easyMap);
-    }).addTo(map);
-    */
-    //L.control.sample('idtxt', { position: 'bottomright' });
-/*
-    function range_onchange() {
-        var a = document.getElementsByName('range');
-        alert(a.range.value);
-    }
-*/
+        // SlideMenu
+        var sldMenuOpt = {
+            width: '200px',
+            height: '100%'
+        }
+        L.control.slideMenu(header + contents, sldMenuOpt).addTo(map);
+        
+        /*
+        L.easyButton('idbtn', function (btn, easyMap) {
+            //popup.setLatLng(easyMap.getCenter()).openOn(easyMap);
+        }).addTo(map);
+        L.easyButton('idbtn', function (btn, easyMap) {
+            //popup.setLatLng(easyMap.getCenter()).openOn(easyMap);
+        }).addTo(map);
+        */
+        //L.control.sample('idtxt', { position: 'bottomright' });
+        /*
+            function range_onchange() {
+                var a = document.getElementsByName('range');
+                alert(a.range.value);
+            }
+        */
     </script>
 
 </body>
