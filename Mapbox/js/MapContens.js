@@ -14,10 +14,15 @@
                      , attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
                 },
 
-                // オーバーレイ（透過）
+                // オーバーレイ（透過）               
+                osm_3dopf: {
+                    url: 'https://3d.opf-dev.jp/osmjpn/{z}/{x}/{y}.png'
+                     , ext: 'png', min: 2, max: 17, discription: 'Open Street Map(試験環境3d.opf-dev.jp)'
+                     , attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                },
                 osm: {
                     url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                     , ext: 'png', min: 2, max: 17, discription: 'Open Street Map'
+                     , ext: 'png', min: 2, max: 17, discription: 'Open Street Map(本家)'
                      , attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 },
                 gsi_std: {

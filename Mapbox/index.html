@@ -57,6 +57,8 @@
         baseMaps[esr.discription] = esr;
         var osm = L.gsiLayer('osm');
         baseMaps[osm.discription] = osm;
+        var osm_3dopf = L.gsiLayer('osm_3dopf');
+        baseMaps[osm_3dopf.discription] = osm_3dopf;
         var gsi_std = L.gsiLayer('gsi_std');
         baseMaps[gsi_std.discription] = gsi_std;
         
@@ -64,6 +66,8 @@
         var overlay = {};
         var osm = L.gsiLayer('osm');
         overlay[osm.discription] = osm;
+        var osm_3dopf = L.gsiLayer('osm_3dopf');
+        overlay[osm_3dopf.discription] = osm_3dopf;
         var gsi_std = L.gsiLayer('gsi_std');
         overlay[gsi_std.discription] = gsi_std;       
             //var gsi_ccm1 = L.gsiLayer('gsi_ccm1');//表示されない
