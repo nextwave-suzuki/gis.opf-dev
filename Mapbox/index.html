@@ -51,6 +51,8 @@
 
         // 背景図
         var baseMaps = {};
+        var aros = L.gsiLayer('aros');
+        baseMaps[aros.discription] = aros;
         var ort = L.gsiLayer('ort');
         baseMaps[ort.discription] = ort;
         var esr = L.gsiLayer('esr');
@@ -140,11 +142,15 @@
         
         // 全体地図
         var map = L.map('map', {
-            center: new L.LatLng(43.052454, 141.359174),
+            center: new L.LatLng(34.2005075, 131.4918, 10.39), //山口県の周防
+            //center: new L.LatLng(43.052454, 141.359174),  //ビットスター
             zoom: 12,
-            layers: [ort]
+            layers: [aros]
+            //layers: [ort]
         });
         
+        map.zoomControl.setPosition('topright');
+
         // レイヤー設定
         //L.control.opacityLayers(baseMaps, overlay).addTo(map);
 
@@ -204,7 +210,7 @@
             }
         );
         overlay['a'] = vec;*/
-
+        /*
         //$.getJSON('https://img.opf-dev.jp/api/v1.1/jpborders/{z}/{x}/{y}.geojson', function (data) {
         $.getJSON('https://dev.samai.net/api/v1.1/poljp/18/234003/96270.geojson', function (data) {
             var json = L.geoJson(data, {
@@ -221,12 +227,11 @@
             // レイヤー設定
             L.control.opacityLayers(baseMaps, overlay).addTo(map);
         });
-
+        */
             // レイヤー設定
-        //L.control.opacityLayers(baseMaps, overlay).addTo(map);
+        L.control.opacityLayers(baseMaps, overlay).addTo(map);
 
 
-        map.zoomControl.setPosition('topright');
         // スライダーバーメニュー
         var header = '<h1 class="cstm-slidmenu-header">メニュー</h1>';
         var contents = '<ul class="cstm-slidmenu-content">';

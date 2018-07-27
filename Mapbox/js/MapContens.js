@@ -5,6 +5,11 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
         statics: {
             type: {
                 // ベースマップ（背景図）
+                aros: {
+                    url: 'https://img.opf-dev.jp/arostest/{z}/{x}/{y}.png'
+                    , ext: 'png', min: 15, max: 17, discription: 'arostest(img.opf-dev)'
+                    , attribution: ''
+                },               
                 ort: {
                     url: 'http://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg'
                      , ext: 'jpg', min: 15, max: 17, discription: 'オルソ画像(地理院地図)'
