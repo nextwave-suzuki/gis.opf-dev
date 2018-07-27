@@ -1,3 +1,5 @@
+var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwdGVlanplajlvbCJ9.E2PUAt5YLri8Cy-JH_QFZw';
+
 (function (L) {
     L.GsiLayer = L.TileLayer.extend({
         statics: {
