@@ -45,8 +45,26 @@
             bearing: -17.6,
             container: 'map'
         });
-
+        
         map.on('load', function () {
+            /*map.addLayer({
+                "id": "terrain-data",
+                "type": "fill-extrusion",
+                "source": {
+                    type: 'vector',
+                    url: 'mapbox://mapbox.mapbox-terrain-v2'
+                },
+                "source-layer": "contour",
+                'minzoom': 8,
+                'paint': {
+                    'fill-extrusion-color': '#eee',
+                    'fill-extrusion-height': {
+                        'type': 'identity',
+                        'property': 'ele'
+                    },
+                    'fill-extrusion-opacity': .6
+                }
+            });*/
             map.addLayer({
                 'id': '3d-buildings',
                 'source': 'composite',
@@ -67,9 +85,8 @@
                     'fill-opacity': .6
                 }
             });
-
         });
-
+        
         // Navigation Control
         map.addControl(
             new mapboxgl.NavigationControl(), 'bottom-right');

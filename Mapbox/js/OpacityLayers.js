@@ -1,3 +1,5 @@
+
+
 L.Control.OpacityLayers = L.Control.Layers.extend({
     _addItem: function (obj) {
         var label = L.Control.Layers.prototype._addItem.call(this, obj);
@@ -68,3 +70,5 @@ L.Control.OpacityLayers = L.Control.Layers.extend({
 L.control.opacityLayers = function (baseLayers, overlays, options) {
     return new L.Control.OpacityLayers(baseLayers, overlays, options);
 };
+
+

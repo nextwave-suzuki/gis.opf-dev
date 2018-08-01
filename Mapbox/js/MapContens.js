@@ -1,5 +1,12 @@
 var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwdGVlanplajlvbCJ9.E2PUAt5YLri8Cy-JH_QFZw';
 
+/**** 試験環境タイルサーバー***/
+/*## img.opf-dev
+    AROS：https://img.opf-dev.jp/arostest/{z}/{x}/{y}.png
+
+//## 3d.opf-dev
+    Open Street Map：https://3d.opf-dev.jp/osmjpn/{z}/{x}/{y}.png
+*/
 (function (L) {
     L.GsiLayer = L.TileLayer.extend({
         statics: {
@@ -7,13 +14,13 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                 // ベースマップ（背景図）
                 aros: {
                     url: 'https://img.opf-dev.jp/arostest/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 15, max: 17, discription: 'arostest(img.opf-dev)'
+                    , ext: 'png', min: 15, max: 17, discription: 'AROS(試験環境img.opf-dev.jp)'
                     , attribution: ''
                 },               
                 ort: {
                     url: 'http://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg'
                      , ext: 'jpg', min: 15, max: 17, discription: 'オルソ画像(地理院地図)'
-                     , attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>'
+                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 esr: {
                     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
@@ -35,52 +42,52 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                 gsi_std: {
                     url: 'http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'
                      , ext: 'png', min: 2, max: 17, discription: '標準地図(地理院地図)'
-                     , attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>'
+                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_ccm1: {
                     url: 'URL：https://cyberjapandata.gsi.go.jp/xyz/ccm1/{z}/{x}/{y}.png'
                      , ext: 'png', min: 5, max: 15, discription: '沿岸海域土地条件図（平成元年以降）(地理院地図)'
-                     , attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>'
+                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_lakedata: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/lakedata/{z}/{x}/{y}.png'
                      , ext: 'png', min: 5, max: 15, discription: '湖沼データ(地理院地図)'
-                     , attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>'
+                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_afm: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/afm/{z}/{x}/{y}.png'
                      , ext: 'png', min: 5, max: 15, discription: '活断層図(地理院地図)'
-                     , attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>'
+                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_lcmfc2: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/lcmfc2/{z}/{x}/{y}.png'
                      , ext: 'png', min: 5, max: 15, discription: '治水地形分類図(地理院地図)'
-                     , attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>'
+                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_lum4bl_capital: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/lum4bl_capital1994/{z}/{x}/{y}.png'
                      , ext: 'png', min: 5, max: 15, discription: '宅地利用動向調査-首都圏(地理院地図)'
-                     , attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>'
+                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },               
                 gsi_relief: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png'
                      , ext: 'png', min: 5, max: 15, discription: '色別標高図5-15(地理院地図)'
-                     , attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>'
+                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_anaglyphmap_gray: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/anaglyphmap_gray/{z}/{x}/{y}.png'
                      , ext: 'png', min: 5, max: 15, discription: 'アナグリフ2-16(地理院地図)'
-                     , attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>'
+                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_gmld_ptc2: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/gmld_ptc2/{z}/{x}/{y}.png'
                      , ext: 'png', min: 5, max: 15, discription: '植生（樹木被覆率）0-7(地理院地図)'
-                     , attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>'
+                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_jikizu2015_chijiki_d: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/jikizu2015_chijiki_d/{z}/{x}/{y}.png'
                      , ext: 'png', min: 5, max: 15, discription: '磁気図4-8(地理院地図)'
-                     , attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>'
+                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 nasa_Temp: {
                     url: 'https://map1.vis.earthdata.nasa.gov/wmts-webmerc/MODIS_Terra_Land_Surface_Temp_Day/default//GoogleMapsCompatible_Level7/{z}/{y}/{x}.png'
@@ -105,7 +112,7 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                 json: {
                     url: 'https://dev.samai.net/api/v1.1/jpborders/18/234003/96270.geojson'
                      , ext: 'png', min: 5, max: 15, discription: 'geoJson'
-                     , attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>'
+                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
 
                 //jiki: {url: 'https://cyberjapandata.gsi.go.jp/xyz/jikizu2015_chijiki_d/{z}/{x}/{y}.png'
@@ -210,7 +217,7 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                     , dataType: "json"
                     , success: console.log("County data successfully loaded.")
                     , discription: '池原さん'
-                    , attribution: '<a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank">国土地理院</a>'
+                    , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
 
 
