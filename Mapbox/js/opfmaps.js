@@ -30,6 +30,37 @@ L.control.zoomlevel = function (options) {
     return new L.Control.Zoomlevel(options);
 };
 
+/************************************************************************
+ L.Control
+ - OPF.Control.Centerlat
+ ************************************************************************/
+L.Control.Centerlat = L.Control.extend({
+    options: {
+        id: 'centerlat',
+        position: 'bottomright',
+    },
+    onAdd: function () {
+
+        var container = L.DomUtil.create('div');
+        //var gauge = L.DomUtil.create('div');
+        container.id = this.options.id;
+        container.style.width = '200px';
+        container.style.background = 'rgba(255,255,255,0.5)';
+        container.style.textAlign = 'left';
+        map.on('move', function (ev) {
+            container.innerHTML = map.getCenter();
+        })
+        //container.appendChild(gauge);
+
+        return container;
+    },
+    onRemove: function () {
+        alert('onRemove');
+    }
+});
+L.control.centerlat = function (options) {
+    return new L.Control.Centerlat(options);
+};
 
 
 // 背景図
@@ -38,6 +69,8 @@ var aros = L.gsiLayer('aros');
 baseMaps[aros.discription] = aros;
 var arosmapbox = L.gsiLayer('arosmapbox');
 baseMaps[arosmapbox.discription] = arosmapbox;
+var arosnatural = L.gsiLayer('arosnatural');
+baseMaps[arosnatural.discription] = arosnatural;
 var ort = L.gsiLayer('ort');
 baseMaps[ort.discription] = ort;
 var esr = L.gsiLayer('esr');
@@ -150,17 +183,16 @@ ort.addTo(map);
     layers: [ort]
 });*/
 
-// 右上
+//####
+//# 右上
 // ズームコントロール
 map.zoomControl.setPosition('topright');//L.mapbox.map 用
-//zoomControl = L.Control.Zoom({ position: "topright" });
-//map.addControl(zoomControl);
-
 // レイヤー（透過付）コントロール
 opacitylayersCntrol = L.control.opacityLayers(baseMaps, overlay);
 map.addControl(opacitylayersCntrol);
 
-// 左上
+//####
+//# 左上
 // 3Dボタン
 //L.easyButton('fa-star', function () { alert('button works') }).addTo(map);
 d3Control = L.easyButton({
@@ -188,6 +220,8 @@ L.easyButton('fa-globe', { title: 'click to make inactive' }, function (btn, map
 //L.easyButton('fa-star', function () { alert('button works') }).addTo(map);
 
 
+//####
+//# 左下
 // スケールコントロール
 scaleControl = L.control.scale({
     position: 'bottomleft',//'bottomleft'
@@ -205,6 +239,28 @@ zoomlevelControl = L.control.zoomlevel({
 });
 map.addControl(zoomlevelControl);
 $("#zoomlevel").html('Zoom level: ' + map.getZoom());
+
+// 中心座標コントロール
+/*centerlatControl = L.control.centerlat({
+    id: 'centerlat',
+    position: 'bottomleft'
+});
+map.addControl(centerlatControl);
+$("#centerlat").html(map.getCenter());
+*/
+
+/************************************************************************
+ map events
+************************************************************************/
+map.on('click', function (ev) {
+});
+map.on('move', function (ev) {
+});
+map.on('zoomend', function (ev) {
+});
+map.on('baselayerchange', function (ev) {
+});
+
 
 // ジオコーダーコントロール
 /*geocoderControl = L.mapbox.geocoderControl(('mapbox.places'), {

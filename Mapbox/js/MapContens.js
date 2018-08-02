@@ -14,12 +14,17 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                 // ベースマップ（背景図）
                 aros: {
                     url: 'https://img.opf-dev.jp/arostest/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 15, max: 17, discription: 'AROS GDAL(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 8, max: 13, discription: 'AROS GDAL(試験環境img.opf-dev.jp)'
                     , attribution: ''
                 },
                 arosmapbox: {
                     url: 'https://img.opf-dev.jp/asia_japan/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 15, max: 17, discription: 'AROS Mapbox MB tiles(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 8, max: 13, discription: 'AROS Mapbox MB tiles(試験環境img.opf-dev.jp)'
+                    , attribution: ''
+                },
+                arosnatural: {
+                    url: 'https://img.opf-dev.jp/natural/{z}/{x}/{y}.png'
+                    , ext: 'png', min: 8, max: 13, discription: 'AROS natural(試験環境img.opf-dev.jp)'
                     , attribution: ''
                 },
                 ort: {
@@ -145,9 +150,9 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
             var url = type.url;
             var options = L.setOptions(this, {
                 attribution: type.attribution,
-                maxZoom: 20,
-                //maxNativeZoom: type.max,
                 //minZoom: type.min,
+                //maxZoom: type.min,
+                //maxNativeZoom: type.max,
                 errorTileUrl: 'img/nodata.gif'
             });
             L.TileLayer.prototype.initialize.call(this, url, options);
