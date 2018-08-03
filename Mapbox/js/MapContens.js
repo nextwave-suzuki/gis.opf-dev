@@ -22,6 +22,11 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                     , ext: 'png', min: 8, max: 13, discription: 'AROS Mapbox MB tiles(試験環境img.opf-dev.jp)'
                     , attribution: ''
                 },
+                arostrue: {
+                    url: 'https://img.opf-dev.jp/true/{z}/{x}/{y}.png'
+                    , ext: 'png', min: 8, max: 13, discription: 'AROS true(試験環境img.opf-dev.jp)'
+                    , attribution: ''
+                },
                 arosnatural: {
                     url: 'https://img.opf-dev.jp/natural/{z}/{x}/{y}.png'
                     , ext: 'png', min: 8, max: 13, discription: 'AROS natural(試験環境img.opf-dev.jp)'
