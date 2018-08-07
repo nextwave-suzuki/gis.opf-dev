@@ -57,5 +57,5 @@ L.Control.OpacityLayers = L.Control.Layers.extend({
     }
 });
 L.control.opacityLayers = function (baseLayers, overlays, options) {
-        return new L.Control.OpacityLayers(baseLayers, overlays, options);
+    return new L.Control.OpacityLayers(baseLayers, overlays, options);
 };

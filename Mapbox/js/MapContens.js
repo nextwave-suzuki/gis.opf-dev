@@ -15,22 +15,27 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                 aros: {
                     url: 'https://img.opf-dev.jp/arostest/{z}/{x}/{y}.png'
                     , ext: 'png', min: 8, max: 13, discription: 'AROS GDAL(試験環境img.opf-dev.jp)'
-                    , attribution: ''
+                    , attribution: 'opf'
                 },
                 arosmapbox: {
                     url: 'https://img.opf-dev.jp/asia_japan/{z}/{x}/{y}.png'
                     , ext: 'png', min: 8, max: 13, discription: 'AROS Mapbox MB tiles(試験環境img.opf-dev.jp)'
-                    , attribution: ''
+                    , attribution: 'opf'
                 },
                 arostrue: {
                     url: 'https://img.opf-dev.jp/true/{z}/{x}/{y}.png'
                     , ext: 'png', min: 8, max: 13, discription: 'AROS true(試験環境img.opf-dev.jp)'
-                    , attribution: ''
+                    , attribution: 'opf'
                 },
                 arosnatural: {
                     url: 'https://img.opf-dev.jp/natural/{z}/{x}/{y}.png'
                     , ext: 'png', min: 8, max: 13, discription: 'AROS natural(試験環境img.opf-dev.jp)'
-                    , attribution: ''
+                    , attribution: 'opf'
+                },
+                aroshyou: {
+                    url: 'https://img.opf-dev.jp/aw3d30/{z}/{x}/{y}.png'
+                    , ext: 'png', min: 6, max: 12, discription: 'AROS 標高30mメッシュ(試験環境img.opf-dev.jp)'
+                    , attribution: 'opf'
                 },
                 ort: {
                     url: 'http://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg'

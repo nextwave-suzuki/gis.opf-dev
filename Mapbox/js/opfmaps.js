@@ -65,14 +65,17 @@ L.control.centerlat = function (options) {
 
 // 背景図
 var baseMaps = {};
-var aros = L.gsiLayer('aros');
-baseMaps[aros.discription] = aros;
+//var aros = L.gsiLayer('aros');
+//baseMaps[aros.discription] = aros;
 //var arosmapbox = L.gsiLayer('arosmapbox');
 //baseMaps[arosmapbox.discription] = arosmapbox;
 var arostrue = L.gsiLayer('arostrue');
 baseMaps[arostrue.discription] = arostrue;
 var arosnatural = L.gsiLayer('arosnatural');
 baseMaps[arosnatural.discription] = arosnatural;
+var aroshyou = L.gsiLayer('aroshyou');
+baseMaps[aroshyou.discription] = aroshyou;
+
 var ort = L.gsiLayer('ort');
 baseMaps[ort.discription] = ort;
 var esr = L.gsiLayer('esr');
@@ -195,6 +198,13 @@ map.addControl(opacitylayersCntrol);
 
 //####
 //# 左上
+// ジオコーダーコントロール
+geocoderControl = L.mapbox.geocoderControl(('mapbox.places'), {
+    keepOpen: true,//false
+    //accessToken:,
+    autocomplete: true,//false
+});
+map.addControl(geocoderControl);
 // 3Dボタン
 //L.easyButton('fa-star', function () { alert('button works') }).addTo(map);
 d3Control = L.easyButton({
@@ -264,13 +274,6 @@ map.on('baselayerchange', function (ev) {
 });
 
 
-// ジオコーダーコントロール
-/*geocoderControl = L.mapbox.geocoderControl(('mapbox.places'), {
-    keepOpen: true,//false
-    //accessToken:,
-    autocomplete: true,//false
-});
-map.addControl(geocoderControl);*/
 
 /*
 var counties = $.ajax({
