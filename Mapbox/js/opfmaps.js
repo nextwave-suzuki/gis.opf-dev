@@ -73,8 +73,6 @@ var arostrue = L.gsiLayer('arostrue');
 baseMaps[arostrue.discription] = arostrue;
 var arosnatural = L.gsiLayer('arosnatural');
 baseMaps[arosnatural.discription] = arosnatural;
-var aroshyou = L.gsiLayer('aroshyou');
-baseMaps[aroshyou.discription] = aroshyou;
 
 var ort = L.gsiLayer('ort');
 baseMaps[ort.discription] = ort;
@@ -89,6 +87,11 @@ baseMaps[gsi_std.discription] = gsi_std;
 
 // オーバーレイ
 var overlay = {};
+var aroshyou = L.gsiLayer('aroshyou');
+overlay[aroshyou.discription] = aroshyou;
+var aroskoutei = L.gsiLayer('aroskoutei');
+overlay[aroskoutei.discription] = aroskoutei;
+
 var osm = L.gsiLayer('osm');
 overlay[osm.discription] = osm;
 var osm_3dopf = L.gsiLayer('osm_3dopf');
@@ -126,7 +129,7 @@ overlay[nasa_Chlorophyll.discription] = nasa_Chlorophyll;
 //var json = L.jsonLayer('ike');
 /*
 var counties = $.ajax({
-    url: 'https://dev.samai.net/api/v1.1/poljp/18/234003/96270.geojson',
+    url: 'http://nextsv09/webHidakaSyougaishien/data.json',
     dataType: 'json',
     success: console.log("County data successfully loaded."),
     error: function (xhr) {
@@ -138,7 +141,7 @@ $.when(counties).done(function () {
     json = L.geoJSON(counties.responseJSON);
     overlay['json'] = json;
     // レイヤー設定
-    L.control.opacityLayers(baseMaps, overlay).addTo(map);
+    //L.control.opacityLayers(baseMaps, overlay).addTo(map);
 });
 */
 /*
@@ -180,6 +183,7 @@ var map = L.mapbox.map('map', 'mapbox'
 );
 map.setView([43.052454, 141.359174], 12);
 ort.addTo(map);
+
 /*var map = new L.mapbox.map('map', {
     //center: new L.LatLng(34.2005075, 131.4918, 10.39), //山口県の周防
     center: new L.LatLng(43.052454, 141.359174),  //ビットスター
@@ -222,6 +226,126 @@ d3Control = L.easyButton({
     }]
 });
 map.addControl(d3Control);
+// インポートボタン
+var style = { color: 'magenta', opacity: 1.0, fillOpacity: 0.5, weight: 2, clickable: false };
+L.Control.FileLayerLoad.LABEL = '<img class="icon" src="images/impjson.jpg" alt="file icon" width="18" height="18" padding="4"/>';
+L.control.fileLayerLoad({
+    fitBounds: true,
+    layerOptions: {
+        style: style,
+        pointToLayer: function (feature, latlng) {
+            // 名称・内容情報を作成する
+            if (feature.properties._markerType === "Icon") {
+                var geojsonMarkerOptions = {
+                    iconUrl: 'my-icon.png',
+                    iconSize: [10, 10],
+                    iconAnchor: [10, 10],
+                };
+
+                var iconUrl = feature.properties["_iconUrl"];
+                var iconSize = (feature.properties["_iconSize"]);
+                var iconAnchor = (feature.properties["_iconAnchor"]);
+                var iconName = (feature.properties["name"]);
+
+                geojsonMarkerOptions.iconUrl = iconUrl;
+                geojsonMarkerOptions.iconSize = (iconSize[0] === 0 || iconSize[1] === 0) ? [10, 10] : iconSize;
+                geojsonMarkerOptions.iconAnchor = (iconAnchor[0] === 0 || iconAnchor[1] === 0) ? [10, 10] : iconAnchor;
+
+                return new L.marker(latlng, { icon: new L.Icon(geojsonMarkerOptions) }).bindPopup(iconName);
+
+            } else if (feature.properties._markerType === "CircleMarker") {
+                var geojsonMarkerOptions = {
+                    radius: 8,
+                    fillColor: "#ff7800",
+                    color: "#000",
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                };
+
+                return new L.circleMarker(latlng, geojsonMarkerOptions);
+
+            } else if (feature.properties._markerType === "Circle") {
+                var geojsonMarkerOptions = {
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.5,
+                    radius: 500
+                };
+
+                return new L.circle(latlng, geojsonMarkerOptions);
+
+            } else if (feature.properties._markerType === "DivIcon") {
+                //時間なく未対応
+                /*var geojsonMarkerOptions = {
+                        className:'current-location-icon',
+                        html: feature.properties._html,
+                        iconAnchor:[0,0],
+                        iconSize:null,
+                        popupAnchor:[0,0]
+                };
+                var iconUrl = feature.properties["_iconUrl"];
+                var iconSize = (feature.properties["_iconSize"]);
+                var iconAnchor = (feature.properties["_iconAnchor"]);
+                var iconName = (feature.properties["name"]);
+
+                geojsonMarkerOptions.iconUrl = iconUrl;
+                geojsonMarkerOptions.iconSize = (iconSize[0] === 0 || iconSize[1] === 0) ? [10, 10] : iconSize;
+                geojsonMarkerOptions.iconAnchor = (iconAnchor[0] === 0 || iconAnchor[1] === 0) ? [10, 10] : iconAnchor;
+
+                return new L.marker(latlng, { icon: new L.Icon(geojsonMarkerOptions) }).bindPopup(iconName);
+                */
+            }
+
+        },
+        onEachFeature: function (feature, layer) {
+
+            if (!feature.properties) {
+                return;
+            }
+
+            // 名称・内容情報を作成する
+            var figureInfo = { name: null, description: null, keyValues: [] };
+            var geoJSONKeys = {
+			    "_color": true,
+			    "_opacity": true,
+			    "_weight": true
+		    };
+
+            if (feature.properties["name"]) {
+                figureInfo.name = $.trim(feature.properties["name"]);
+            }
+
+            if (feature.properties["description"]) {
+
+                figureInfo.text = $.trim(feature.properties["description"]);
+
+            } else {
+                /*
+                for (var key in feature.properties) {
+
+                    if (!feature.properties[key]) {
+                        continue;
+                    }
+
+                    if (key !== "" && key !== "name" && !geoJSONKeys[key]) {
+                        figureInfo.keyValues.push({
+                            key: key,
+                            value: feature.properties[key]
+                        });
+                    }
+                }*/
+            }
+
+
+            if (feature.properties && figureInfo.name) {
+                layer.bindPopup(figureInfo.name);
+            }else{
+            }
+        }
+    },
+}).addTo(map);
+
 /*
 L.easyButton('fa-globe', { title: 'click to make inactive' }, function (btn, map) {
     window.location.href = './index3d.html';
@@ -274,6 +398,41 @@ map.on('baselayerchange', function (ev) {
 });
 
 
+
+
+
+/*
+L.Control.FileLayerLoad.LABEL = '<img class="icon" src="folder.svg" alt="file icon"/>';
+control = L.Control.fileLayerLoad({
+    fitBounds: true,
+    layerOptions: {
+        style: style,
+        pointToLayer: function (data, latlng) {
+            return L.circleMarker(
+                latlng,
+                { style: style }
+            );
+        }
+    }
+});
+control.addTo(map);
+control.loader.on('data:loaded', function (e) {
+    var layer = e.layer;
+    console.log(layer);
+});*/
+/*
+var style = { color: 'magenta', opacity: 1.0, fillOpacity: 0.5, weight: 2, clickable: false };
+L.Control.FileLayerLoad.LABEL = '<img class="icon" src="folder.svg" alt="file icon" width="18" height="18" padding="4"/>';
+L.Control.fileLayerLoad({
+    fitBounds: true,
+    layerOptions: {
+        style: style,
+        pointToLayer: function (data, latlng) {
+            return L.circleMarker(latlng, { style: style });
+        }
+    },
+}).addTo(map);
+*/
 
 /*
 var counties = $.ajax({
@@ -332,8 +491,23 @@ var json = L.uGeoJSONLayer({
 );
 overlay['a'] = vec;*/
 /*
+var counties = $.ajax({
+    url: "https://gist.githubusercontent.com/maptastik/df8e483d5ac1c6cae3dc4a7c02ea9039/raw/9cd46849bddcfa90aab240772a12275408d6d8d0/kyCounties.geojson",
+    dataType: "json",
+    success: console.log("County data successfully loaded."),
+    error: function (xhr) {
+        alert(xhr.statusText)
+    }
+});
+json = L.geoJSON(counties.responseJSON);
+overlay['json'] = json;
+// レイヤー設定
+L.control.opacityLayers(baseMaps, overlay).addTo(map);
+*/
+/*
 //$.getJSON('https://img.opf-dev.jp/api/v1.1/jpborders/{z}/{x}/{y}.geojson', function (data) {
 $.getJSON('https://dev.samai.net/api/v1.1/poljp/18/234003/96270.geojson', function (data) {
+
     var json = L.geoJson(data, {
         onEachFeature: function (feature, layer) {
             var field = '名称: ' + '' + '<br>' +
@@ -382,3 +556,43 @@ L.easyButton('idbtn', function (btn, easyMap) {
         alert(a.range.value);
     }
 */
+
+//  fileLayer
+/*(function (window) {
+    'use strict';
+
+    function initMap() {
+        var control;
+        var L = window.L;
+
+        var style = {
+            color: 'red',
+            opacity: 1.0,
+            fillOpacity: 1.0,
+            weight: 2,
+            clickable: false
+        };
+        L.Control.FileLayerLoad.LABEL = '<img class="icon" src="folder.svg" alt="file icon"/>';
+        control = L.Control.fileLayerLoad({
+            fitBounds: true,
+            layerOptions: {
+                style: style,
+                pointToLayer: function (data, latlng) {
+                    return L.circleMarker(
+                        latlng,
+                        { style: style }
+                    );
+                }
+            }
+        });
+        control.addTo(map);
+        control.loader.on('data:loaded', function (e) {
+            var layer = e.layer;
+            console.log(layer);
+        });
+    }
+
+    window.addEventListener('load', function () {
+        initMap();
+    });
+}(window));*/

@@ -13,35 +13,47 @@
 
     <title>OPFテストサイト</title>
 
+    <!-- Mapbox -->
     <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
     <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
-   
+    <!-- jQuery -->
     <link rel="stylesheet" type="text/css" href="./js.lib/jquery/jquery-ui.min.css" />
-    <script type="text/javascript" src="./js.lib/jquery/jquery-1.11.1.min.js"></script>  
+    <script type="text/javascript" src="./js.lib/jquery/jquery-1.11.1.min.js"></script>
 
+    <!-- MapContents -->
+    <script src="js/MapContens.js"></script>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/L.Control.SlideMenu.css" />
-    <script src="js.lib/L.Control.SlideMenu.js"></script>
-
+    <!-- easybutton -->
     <link rel='stylesheet' href='css/easy-button.css' />
     <script src='js.lib/easy-button.js'></script>
-
-    <script src="js/MapContens.js"></script>
+    <!-- slidemenu -->
+    <link rel="stylesheet" href="css/L.Control.SlideMenu.css" />
+    <script src="js.lib/L.Control.SlideMenu.js"></script>
+    <!-- json import -->
+    <script src="js/leafletfilelayer.js"></script>
+    <!--<script src="js/figure.js"></script>-->
+    <!--<script src="js.lib/leaflet.filelayer.js"></script>-->
+    <!-- OpacityLayers -->
     <script src="js/OpacityLayers.js"></script>
-    
-    <link rel="stylesheet" type="text/css" href="./css/opfmaps.css" />
-<!--
-    <script type="text/javascript" src="js/opfmaps.js"></script>
-    <link rel="stylesheet" type="text/css" href="./css/opfmaps.css" />
--->
+
+    <!-- opf maps -->
+    <!--<link rel="stylesheet" type="text/css" href="./css/opfmaps.css" />
+    <script type="text/javascript" src="js/opfmaps.js"></script>-->
 </head>
 
 <body>
-
+    <!--
+    <div class="input-file">
+        <span class="actions">Import Features</span>
+        <input type="file" id='import'>
+    </div>
+    -->
     <div id="map"></div>
     <div style="display:none;">デバッグ: <span id="debug"></span></div>
-        
+
+    <!-- opf maps -->
+    <link rel="stylesheet" type="text/css" href="./css/opfmaps.css" />
     <script type="text/javascript" src="js/opfmaps.js"></script>
     <!--
         <link rel="stylesheet" type="text/css" href="./css/opfmaps.css" />
@@ -49,5 +61,4 @@
     <!--<script src="https://d3js.org/d3.v5.min.js"></script>-->
 
 </body>
-
 </html>
