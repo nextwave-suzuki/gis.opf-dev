@@ -89,8 +89,12 @@ baseMaps[gsi_std.discription] = gsi_std;
 var overlay = {};
 var aroshyou = L.gsiLayer('aroshyou');
 overlay[aroshyou.discription] = aroshyou;
-var aroskoutei = L.gsiLayer('aroskoutei');
-overlay[aroskoutei.discription] = aroskoutei;
+var aroscolorheight = L.gsiLayer('aroscolorheight');
+overlay[aroscolorheight.discription] = aroscolorheight;
+var aroshill = L.gsiLayer('aroshill');
+overlay[aroshill.discription] = aroshill;
+var arosslope = L.gsiLayer('arosslope');
+overlay[arosslope.discription] = arosslope;
 
 var osm = L.gsiLayer('osm');
 overlay[osm.discription] = osm;
@@ -229,6 +233,16 @@ map.addControl(d3Control);
 // インポートボタン
 var style = { color: 'magenta', opacity: 1.0, fillOpacity: 0.5, weight: 2, clickable: false };
 L.Control.FileLayerLoad.LABEL = '<img class="icon" src="images/impjson.jpg" alt="file icon" width="18" height="18" padding="4"/>';
+
+
+function onEachFeature(feature, layer) {
+    // does this feature have a property named popupContent?
+    if (feature.properties && feature.properties.popupContent) {
+        layer.bindPopup(feature.properties.popupContent);
+    }
+}
+
+
 L.control.fileLayerLoad({
     fitBounds: true,
     layerOptions: {
@@ -277,24 +291,24 @@ L.control.fileLayerLoad({
 
             } else if (feature.properties._markerType === "DivIcon") {
                 //時間なく未対応
-                /*var geojsonMarkerOptions = {
-                        className:'current-location-icon',
-                        html: feature.properties._html,
-                        iconAnchor:[0,0],
-                        iconSize:null,
-                        popupAnchor:[0,0]
-                };
-                var iconUrl = feature.properties["_iconUrl"];
-                var iconSize = (feature.properties["_iconSize"]);
-                var iconAnchor = (feature.properties["_iconAnchor"]);
-                var iconName = (feature.properties["name"]);
-
-                geojsonMarkerOptions.iconUrl = iconUrl;
-                geojsonMarkerOptions.iconSize = (iconSize[0] === 0 || iconSize[1] === 0) ? [10, 10] : iconSize;
-                geojsonMarkerOptions.iconAnchor = (iconAnchor[0] === 0 || iconAnchor[1] === 0) ? [10, 10] : iconAnchor;
-
-                return new L.marker(latlng, { icon: new L.Icon(geojsonMarkerOptions) }).bindPopup(iconName);
-                */
+                //var geojsonMarkerOptions = {
+                //        className:'current-location-icon',
+                //        html: feature.properties._html,
+                //        iconAnchor:[0,0],
+                //        iconSize:null,
+                //        popupAnchor:[0,0]
+                //};
+                //var iconUrl = feature.properties["_iconUrl"];
+                //var iconSize = (feature.properties["_iconSize"]);
+                //var iconAnchor = (feature.properties["_iconAnchor"]);
+                //var iconName = (feature.properties["name"]);
+    
+                //geojsonMarkerOptions.iconUrl = iconUrl;
+                //geojsonMarkerOptions.iconSize = (iconSize[0] === 0 || iconSize[1] === 0) ? [10, 10] : iconSize;
+                //geojsonMarkerOptions.iconAnchor = (iconAnchor[0] === 0 || iconAnchor[1] === 0) ? [10, 10] : iconAnchor;
+    
+                //return new L.marker(latlng, { icon: new L.Icon(geojsonMarkerOptions) }).bindPopup(iconName);
+                
             }
 
         },
@@ -304,13 +318,15 @@ L.control.fileLayerLoad({
                 return;
             }
 
+            onEachFeature(feature, layer);
+
             // 名称・内容情報を作成する
             var figureInfo = { name: null, description: null, keyValues: [] };
             var geoJSONKeys = {
-			    "_color": true,
-			    "_opacity": true,
-			    "_weight": true
-		    };
+                "_color": true,
+                "_opacity": true,
+                "_weight": true
+            };
 
             if (feature.properties["name"]) {
                 figureInfo.name = $.trim(feature.properties["name"]);
@@ -321,26 +337,26 @@ L.control.fileLayerLoad({
                 figureInfo.text = $.trim(feature.properties["description"]);
 
             } else {
-                /*
-                for (var key in feature.properties) {
-
-                    if (!feature.properties[key]) {
-                        continue;
-                    }
-
-                    if (key !== "" && key !== "name" && !geoJSONKeys[key]) {
-                        figureInfo.keyValues.push({
-                            key: key,
-                            value: feature.properties[key]
-                        });
-                    }
-                }*/
+                
+                //for (var key in feature.properties) {
+    
+                //    if (!feature.properties[key]) {
+                //        continue;
+                //    }
+    
+                //    if (key !== "" && key !== "name" && !geoJSONKeys[key]) {
+                //        figureInfo.keyValues.push({
+                //            key: key,
+                //            value: feature.properties[key]
+                //        });
+                //    }
+                //}
             }
 
 
             if (feature.properties && figureInfo.name) {
                 layer.bindPopup(figureInfo.name);
-            }else{
+            } else {
             }
         }
     },

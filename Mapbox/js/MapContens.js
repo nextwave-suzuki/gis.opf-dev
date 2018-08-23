@@ -37,11 +37,21 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                     , ext: 'png', min: 6, max: 12, discription: 'AROS 標高30mメッシュ(試験環境img.opf-dev.jp)'
                     , attribution: 'opf'
                 },
-                aroskoutei: {
+                aroscolorheight: {
                     url: 'https://img.opf-dev.jp/colorheight/{z}/{x}/{y}.png'
                     , ext: 'png', min: 6, max: 12, discription: 'AROS 高低差着彩図(試験環境img.opf-dev.jp)'
                     , attribution: 'opf'
-                },               
+                },
+                aroshill: {
+                    url: 'https://img.opf-dev.jp/hill/{z}/{x}/{y}.png'
+                    , ext: 'png', min: 6, max: 12, discription: 'AROS 影(試験環境img.opf-dev.jp)'
+                    , attribution: 'opf'
+                },
+                arosslope: {
+                    url: 'https://img.opf-dev.jp/slope/{z}/{x}/{y}.png'
+                    , ext: 'png', min: 6, max: 12, discription: 'AROS 傾斜角陰影図(試験環境img.opf-dev.jp)'
+                    , attribution: 'opf'
+                },
                 ort: {
                     url: 'http://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg'
                      , ext: 'jpg', min: 15, max: 17, discription: 'オルソ画像(地理院地図)'
