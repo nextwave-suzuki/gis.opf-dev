@@ -63,71 +63,76 @@ L.control.centerlat = function (options) {
 };
 
 
-// 背景図
+// ベースマップ
 var baseMaps = {};
-//var aros = L.gsiLayer('aros');
+//var aros = L.tlsLayer('aros');
 //baseMaps[aros.discription] = aros;
-//var arosmapbox = L.gsiLayer('arosmapbox');
+//var arosmapbox = L.tlsLayer('arosmapbox');
 //baseMaps[arosmapbox.discription] = arosmapbox;
-var arostrue = L.gsiLayer('arostrue');
+var arostrue = L.tlsLayer('arostrue');
 baseMaps[arostrue.discription] = arostrue;
-var arosnatural = L.gsiLayer('arosnatural');
+var arosnatural = L.tlsLayer('arosnatural');
 baseMaps[arosnatural.discription] = arosnatural;
 
-var ort = L.gsiLayer('ort');
-baseMaps[ort.discription] = ort;
-var esr = L.gsiLayer('esr');
-baseMaps[esr.discription] = esr;
-var osm = L.gsiLayer('osm');
-baseMaps[osm.discription] = osm;
-var osm_3dopf = L.gsiLayer('osm_3dopf');
-baseMaps[osm_3dopf.discription] = osm_3dopf;
-var gsi_std = L.gsiLayer('gsi_std');
-baseMaps[gsi_std.discription] = gsi_std;
+//var esr = L.tlsLayer('esr');
+//baseMaps[esr.discription] = esr;
+//var osm = L.tlsLayer('osm');
+//baseMaps[osm.discription] = osm;
+var osm_img = L.tlsLayer('osm_img');
+baseMaps[osm_img.discription] = osm_img;
+//var osm_3dopf = L.tlsLayer('osm_3dopf');
+//baseMaps[osm_3dopf.discription] = osm_3dopf;
+//var gsi_ort = L.tlsLayer('gsi_ort');
+//baseMaps[gsi_ort.discription] = gsi_ort;
+//var gsi_std = L.tlsLayer('gsi_std');
+//baseMaps[gsi_std.discription] = gsi_std;
 
 // オーバーレイ
 var overlay = {};
-var aroshyou = L.gsiLayer('aroshyou');
-overlay[aroshyou.discription] = aroshyou;
-var aroscolorheight = L.gsiLayer('aroscolorheight');
-overlay[aroscolorheight.discription] = aroscolorheight;
-var aroshill = L.gsiLayer('aroshill');
-overlay[aroshill.discription] = aroshill;
-var arosslope = L.gsiLayer('arosslope');
-overlay[arosslope.discription] = arosslope;
 
-var osm = L.gsiLayer('osm');
-overlay[osm.discription] = osm;
-var osm_3dopf = L.gsiLayer('osm_3dopf');
-overlay[osm_3dopf.discription] = osm_3dopf;
-var gsi_std = L.gsiLayer('gsi_std');
+// AROS
+var aroshyou = L.tlsLayer('aroshyou');
+overlay[aroshyou.discription] = aroshyou;
+var aroscolorheight = L.tlsLayer('aroscolorheight');
+overlay[aroscolorheight.discription] = aroscolorheight;
+var aroshill = L.tlsLayer('aroshill');
+overlay[aroshill.discription] = aroshill;
+var arosslope = L.tlsLayer('arosslope');
+overlay[arosslope.discription] = arosslope;
+//var osm = L.tlsLayer('osm');
+//overlay[osm.discription] = osm;
+var osm_img = L.tlsLayer('osm_img');
+overlay[osm_img.discription] = osm_img;
+//var osm_3dopf = L.tlsLayer('osm_3dopf');
+//overlay[osm_3dopf.discription] = osm_3dopf;
+var gsi_std = L.tlsLayer('gsi_std');
 overlay[gsi_std.discription] = gsi_std;
-//var gsi_ccm1 = L.gsiLayer('gsi_ccm1');//表示されない
+//var gsi_ccm1 = L.tlsLayer('gsi_ccm1');//表示されない
 //overlay[gsi_ccm1.discription] = gsi_ccm1;
-var gsi_lakedata = L.gsiLayer('gsi_lakedata');
+var gsi_lakedata = L.tlsLayer('gsi_lakedata');
 overlay[gsi_lakedata.discription] = gsi_lakedata;
-var gsi_afm = L.gsiLayer('gsi_afm');
+var gsi_afm = L.tlsLayer('gsi_afm');
 overlay[gsi_afm.discription] = gsi_afm;
-var gsi_lcmfc2 = L.gsiLayer('gsi_lcmfc2');
+var gsi_lcmfc2 = L.tlsLayer('gsi_lcmfc2');
 overlay[gsi_lcmfc2.discription] = gsi_lcmfc2;
-var gsi_lum4bl_capital = L.gsiLayer('gsi_lum4bl_capital');
+var gsi_lum4bl_capital = L.tlsLayer('gsi_lum4bl_capital');
 overlay[gsi_lum4bl_capital.discription] = gsi_lum4bl_capital;
-var gsi_relief = L.gsiLayer('gsi_relief');
+var gsi_relief = L.tlsLayer('gsi_relief');
 overlay[gsi_relief.discription] = gsi_relief;
-var gsi_anaglyphmap_gray = L.gsiLayer('gsi_anaglyphmap_gray');
+var gsi_anaglyphmap_gray = L.tlsLayer('gsi_anaglyphmap_gray');
 overlay[gsi_anaglyphmap_gray.discription] = gsi_anaglyphmap_gray;
-var gsi_gmld_ptc2 = L.gsiLayer('gsi_gmld_ptc2');
+var gsi_gmld_ptc2 = L.tlsLayer('gsi_gmld_ptc2');
 overlay[gsi_gmld_ptc2.discription] = gsi_gmld_ptc2;
-var gsi_jikizu2015_chijiki_d = L.gsiLayer('gsi_jikizu2015_chijiki_d');
+var gsi_jikizu2015_chijiki_d = L.tlsLayer('gsi_jikizu2015_chijiki_d');
 overlay[gsi_jikizu2015_chijiki_d.discription] = gsi_jikizu2015_chijiki_d;
-var nasa_Temp = L.gsiLayer('nasa_Temp');
-overlay[nasa_Temp.discription] = nasa_Temp;
-var nasa_Snow = L.gsiLayer('nasa_Snow');
-overlay[nasa_Snow.discription] = nasa_Snow;
-var nasa_Aerosol = L.gsiLayer('nasa_Aerosol');
-overlay[nasa_Aerosol.discription] = nasa_Aerosol;
-var nasa_Chlorophyll = L.gsiLayer('nasa_Chlorophyll');
-overlay[nasa_Chlorophyll.discription] = nasa_Chlorophyll;
+//var nasa_Temp = L.tlsLayer('nasa_Temp');
+//overlay[nasa_Temp.discription] = nasa_Temp;
+//var nasa_Snow = L.tlsLayer('nasa_Snow');
+//overlay[nasa_Snow.discription] = nasa_Snow;
+//var nasa_Aerosol = L.tlsLayer('nasa_Aerosol');
+//overlay[nasa_Aerosol.discription] = nasa_Aerosol;
+//var nasa_Chlorophyll = L.tlsLayer('nasa_Chlorophyll');
+//overlay[nasa_Chlorophyll.discription] = nasa_Chlorophyll;
 
 // geojson
 //var json = L.jsonLayer('ike');
@@ -186,7 +191,7 @@ var map = L.mapbox.map('map', 'mapbox'
     //}
 );
 map.setView([43.052454, 141.359174], 12);
-ort.addTo(map);
+arostrue.addTo(map);
 
 /*var map = new L.mapbox.map('map', {
     //center: new L.LatLng(34.2005075, 131.4918, 10.39), //山口県の周防
