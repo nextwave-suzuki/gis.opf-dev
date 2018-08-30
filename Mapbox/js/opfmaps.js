@@ -1,5 +1,37 @@
 /************************************************************************
  L.Control
+ - OPF.Control.Coordinate
+ ************************************************************************/
+L.Control.Coordinate = L.Control.extend({
+    options: {
+        id: 'coordinate',
+        position: 'bottomright',
+    },
+    onAdd: function () {
+        var container = L.DomUtil.create('div');
+        //var gauge = L.DomUtil.create('div');
+        container.id = this.options.id;
+        container.style.width = '120px';
+        container.style.background = 'rgba(255,255,255,0.5)';
+        container.style.textAlign = 'left';
+		//20180827クリックした点の座標表示
+		map.on('click', function(e) {
+		    var lat = e.latlng.lat.toFixed(6);
+		    var lon = e.latlng.lng.toFixed(6);
+            container.innerHTML = '経度： ' + lon + '<br />緯度： ' + lat + "<br />UTM ポイント：" + cnvKeiidoToUtm(lon,lat);
+		});
+        return container;
+    },
+    onRemove: function () {
+        alert('onRemove');
+    }
+});
+L.control.coordinate = function (options) {
+    return new L.Control.Coordinate(options);
+};
+
+/************************************************************************
+ L.Control
  - OPF.Control.Zoomlevel
  ************************************************************************/
 L.Control.Zoomlevel = L.Control.extend({
@@ -396,6 +428,13 @@ zoomlevelControl = L.control.zoomlevel({
 });
 map.addControl(zoomlevelControl);
 $("#zoomlevel").html('Zoom level: ' + map.getZoom());
+
+// ズームレベルコントロール
+coordinateControl = L.control.coordinate({
+    id: 'coordinate',
+    position: 'bottomleft'
+});
+map.addControl(coordinateControl);
 
 // 中心座標コントロール
 /*centerlatControl = L.control.centerlat({
