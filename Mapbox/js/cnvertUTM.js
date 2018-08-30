@@ -1,35 +1,42 @@
 function cnvKeiidoToUtm(lon,lat){
 	var intLon = parseFloat(lon);
 	var intLat = parseFloat(lat);
+
+
+
 	var zone = lonlat2PointName(intLon,intLat)
 	return zone;
 }
 
-function getDefName(zoneNo){
+function getDefName(zoneNo,NS){
+	//北半球南半球でコードが違うんで処理
 	var defName = '';
 	if ( !zoneNo ) return defName;
-	switch( zoneNo + '' )
-	{
-		case '51':defName = 'EPSG:3097';break;
-		case '52':defName = 'EPSG:3098';break;
-		case '53':defName = 'EPSG:3099';break;
-		case '54':defName = 'EPSG:3100';break;
-		case '55':defName = 'EPSG:3101';break;
-		case '56':defName = 'SR-ORG:1235';break;
+
+	var epsgCode = 32600 + parseInt(zoneNo);
+	if(NS == 2){
+		epsgCode = 32700 + parseInt(zoneNo);
 	}
+	defName = 'EPSG:' + epsgCode;
 	return defName;
 }
 
 function lonlat2PointName(lon,lat){
 //経緯度からUTMコードを返す
 	var zone = Math.floor(lon/6) + 31;
-	var defName = getDefName(zone);
+	var NS = 1;
+	if(lat < 0){
+		NS = 2;
+	}
+	var defName = getDefName(zone,NS);
 	if ( defName == '' ) return '';
+
+//if (lon < 0){lon = lon * -1;}
+//if (lat < 0){lat = lat * -1;}
 
 	var projUTM = new Proj4js.Proj(defName);
 	var latLonPoint = new Proj4js.Point(lon,lat);
 	var PROJ_WORLD = new Proj4js.Proj('EPSG:4326');
-
 	var utmPoint = Proj4js.transform(PROJ_WORLD,projUTM,latLonPoint);
 
 		return getUTMPointName(

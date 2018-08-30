@@ -18,6 +18,22 @@ L.Control.Coordinate = L.Control.extend({
 		map.on('click', function(e) {
 		    var lat = e.latlng.lat.toFixed(6);
 		    var lon = e.latlng.lng.toFixed(6);
+
+			//座標　360より大きいor-360より小さい場合の処理
+			if(lon>360){
+				var cnt = Math.floor(lon/360);
+				lon = lon - cnt * 360;
+			}else if(lon<-360){
+				var cnt = Math.floor((lon * -1)/360);
+				lon = lon + cnt * 360;
+			}
+			//東経180を超えたときの西経、その逆も
+			if(lon>180){
+				lon = lon - 360;
+			}else if(lon<-180){
+				lon = lon + 360;
+			}
+
             container.innerHTML = '経度： ' + lon + '<br />緯度： ' + lat + "<br />UTM ポイント：" + cnvKeiidoToUtm(lon,lat);
 		});
         return container;
