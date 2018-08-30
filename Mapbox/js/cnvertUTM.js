@@ -1,9 +1,6 @@
 function cnvKeiidoToUtm(lon,lat){
 	var intLon = parseFloat(lon);
 	var intLat = parseFloat(lat);
-
-
-
 	var zone = lonlat2PointName(intLon,intLat)
 	return zone;
 }
@@ -31,9 +28,6 @@ function lonlat2PointName(lon,lat){
 	var defName = getDefName(zone,NS);
 	if ( defName == '' ) return '';
 
-//if (lon < 0){lon = lon * -1;}
-//if (lat < 0){lat = lat * -1;}
-
 	var projUTM = new Proj4js.Proj(defName);
 	var latLonPoint = new Proj4js.Point(lon,lat);
 	var PROJ_WORLD = new Proj4js.Proj('EPSG:4326');
@@ -45,7 +39,7 @@ function lonlat2PointName(lon,lat){
 			utmPoint.x,
 			utmPoint.y,
 			4
-		);
+		) + "<br>" + utmPoint.x + "<br>" + utmPoint.y;
 }
 
 function getUTMPointName( zone, mark, x, y, num, hideNumber){
