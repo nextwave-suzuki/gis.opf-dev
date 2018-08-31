@@ -113,14 +113,15 @@ L.control.centerlat = function (options) {
 
 // ベースマップ
 var baseMaps = {};
-//var aros = L.tlsLayer('aros');
-//baseMaps[aros.discription] = aros;
-//var arosmapbox = L.tlsLayer('arosmapbox');
-//baseMaps[arosmapbox.discription] = arosmapbox;
-var arostrue = L.tlsLayer('arostrue');
-baseMaps[arostrue.discription] = arostrue;
-var arosnatural = L.tlsLayer('arosnatural');
-baseMaps[arosnatural.discription] = arosnatural;
+//var alos = L.tlsLayer('alos');
+//baseMaps[alos.discription] = alos;
+//var alosmapbox = L.tlsLayer('alosmapbox');
+//baseMaps[alosmapbox.discription] = alosmapbox;
+// ALOS
+var alostrue = L.tlsLayer('alostrue');
+baseMaps[alostrue.discription] = alostrue;
+var alosnatural = L.tlsLayer('alosnatural');
+baseMaps[alosnatural.discription] = alosnatural;
 
 //var esr = L.tlsLayer('esr');
 //baseMaps[esr.discription] = esr;
@@ -138,15 +139,15 @@ baseMaps[osm_img.discription] = osm_img;
 // オーバーレイ
 var overlay = {};
 
-// AROS
-var aroshyou = L.tlsLayer('aroshyou');
-overlay[aroshyou.discription] = aroshyou;
-var aroscolorheight = L.tlsLayer('aroscolorheight');
-overlay[aroscolorheight.discription] = aroscolorheight;
-var aroshill = L.tlsLayer('aroshill');
-overlay[aroshill.discription] = aroshill;
-var arosslope = L.tlsLayer('arosslope');
-overlay[arosslope.discription] = arosslope;
+// ALOS
+var aloshyou = L.tlsLayer('aloshyou');
+overlay[aloshyou.discription] = aloshyou;
+var aloscolorheight = L.tlsLayer('aloscolorheight');
+overlay[aloscolorheight.discription] = aloscolorheight;
+var aloshill = L.tlsLayer('aloshill');
+overlay[aloshill.discription] = aloshill;
+var alosslope = L.tlsLayer('alosslope');
+overlay[alosslope.discription] = alosslope;
 //var osm = L.tlsLayer('osm');
 //overlay[osm.discription] = osm;
 var osm_img = L.tlsLayer('osm_img');
@@ -239,13 +240,13 @@ var map = L.mapbox.map('map', 'mapbox'
     //}
 );
 map.setView([43.052454, 141.359174], 12);
-arostrue.addTo(map);
+alostrue.addTo(map);
 
 /*var map = new L.mapbox.map('map', {
     //center: new L.LatLng(34.2005075, 131.4918, 10.39), //山口県の周防
     center: new L.LatLng(43.052454, 141.359174),  //ビットスター
     zoom: 12,
-    //layers: [aros]
+    //layers: [alos]
     layers: [ort]
 });*/
 

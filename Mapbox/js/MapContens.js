@@ -12,45 +12,45 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
         statics: {
             type: {
             ///////////////// 試験環境 /////////////////
-                // AROS
-                aros: {
+                // ALOS
+                alos: {
                     url: 'https://img.opf-dev.jp/arostest/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 8, max: 13, discription: 'AROS GDAL(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 8, max: 13, discription: 'ALOS GDAL(試験環境img.opf-dev.jp)'
                     , attribution: 'opf'
                 },
-                arosmapbox: {
+                alosmapbox: {
                     url: 'https://img.opf-dev.jp/asia_japan/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 8, max: 13, discription: 'AROS Mapbox MB tiles(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 8, max: 13, discription: 'ALOS Mapbox MB tiles(試験環境img.opf-dev.jp)'
                     , attribution: 'opf'
                 },
-                arostrue: {
+                alostrue: {
                     url: 'https://img.opf-dev.jp/true/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 8, max: 13, discription: 'AROS true(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 8, max: 13, discription: 'ALOS true(試験環境img.opf-dev.jp)'
                     , attribution: 'opf'
                 },
-                arosnatural: {
+                alosnatural: {
                     url: 'https://img.opf-dev.jp/natural/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 8, max: 13, discription: 'AROS natural(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 8, max: 13, discription: 'ALOS natural(試験環境img.opf-dev.jp)'
                     , attribution: 'opf'
                 },
-                aroshyou: {
+                aloshyou: {
                     url: 'https://img.opf-dev.jp/aw3d30/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 6, max: 12, discription: 'AROS 標高30mメッシュ(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 6, max: 12, discription: 'ALOS 標高30mメッシュ(試験環境img.opf-dev.jp)'
                     , attribution: 'opf'
                 },
-                aroscolorheight: {
+                aloscolorheight: {
                     url: 'https://img.opf-dev.jp/colorheight/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 6, max: 12, discription: 'AROS 高低差着彩図(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 6, max: 12, discription: 'ALOS 高低差着彩図(試験環境img.opf-dev.jp)'
                     , attribution: 'opf'
                 },
-                aroshill: {
+                aloshill: {
                     url: 'https://img.opf-dev.jp/hill/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 6, max: 12, discription: 'AROS 影(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 6, max: 12, discription: 'ALOS 影(試験環境img.opf-dev.jp)'
                     , attribution: 'opf'
                 },
-                arosslope: {
+                alosslope: {
                     url: 'https://img.opf-dev.jp/slope/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 6, max: 12, discription: 'AROS 傾斜角陰影図(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 6, max: 12, discription: 'ALOS 傾斜角陰影図(試験環境img.opf-dev.jp)'
                     , attribution: 'opf'
                 },
                 // Open Street Map
