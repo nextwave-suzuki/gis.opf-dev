@@ -110,6 +110,7 @@ var Proj4js = {
             this.reportError("Proj4js initialization for:"+dest.srsCode+" not yet complete");
             return point;
         }
+
         
         // Workaround for datum shifts towgs84, if either source or destination projection is not wgs84
         if (source.datum && dest.datum && (
