@@ -16,9 +16,8 @@ L.Control.Coordinate = L.Control.extend({
         container.style.textAlign = 'left';
 		//20180827クリックした点の座標表示
 		map.on('click', function(e) {
-		    var lat = e.latlng.lat.toFixed(6);
-		    var lon = e.latlng.lng.toFixed(6);
-
+		    var lat = parseFloat(e.latlng.lat.toFixed(6));
+		    var lon = parseFloat(e.latlng.lng.toFixed(6));
 			//座標　360より大きいor-360より小さい場合の処理
 			if(lon>360){
 				var cnt = Math.floor(lon/360);
