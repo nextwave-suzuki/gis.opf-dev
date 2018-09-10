@@ -15,12 +15,12 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                 // ALOS
                 alos: {
                     url: 'https://img.opf-dev.jp/arostest/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 8, max: 13, discription: 'ALOS GDAL(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 6, max: 12, discription: 'ALOS GDAL(試験環境img.opf-dev.jp)'
                     , attribution: 'opf'
                 },
                 alosmapbox: {
                     url: 'https://img.opf-dev.jp/asia_japan/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 8, max: 13, discription: 'ALOS Mapbox MB tiles(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 0, max: 18, discription: 'ALOS Mapbox MB tiles(試験環境img.opf-dev.jp)'
                     , attribution: 'opf'
                 },
                 alostrue: {
@@ -40,7 +40,7 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                 },
                 aloscolorheight: {
                     url: 'https://img.opf-dev.jp/colorheight/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 6, max: 12, discription: 'ALOS 高低差着彩図(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 0, max: 12, discription: 'ALOS 高低差着彩図(試験環境img.opf-dev.jp)'
                     , attribution: 'opf'
                 },
                 aloshill: {
@@ -50,13 +50,18 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                 },
                 alosslope: {
                     url: 'https://img.opf-dev.jp/slope/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 6, max: 12, discription: 'ALOS 傾斜角陰影図(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 0, max: 12, discription: 'ALOS 傾斜角陰影図(試験環境img.opf-dev.jp)'
+                    , attribution: 'opf'
+                },
+                alosaspect: {
+                    url: 'https://img.opf-dev.jp/aspect/{z}/{x}/{y}.png'
+                    , ext: 'png', min: 5, max: 12, discription: 'ALOS 傾斜方向図(試験環境img.opf-dev.jp)'
                     , attribution: 'opf'
                 },
                 // Open Street Map
                 osm_img: {
                     url: 'https://img.opf-dev.jp/osmjpn/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 2, max: 17, discription: 'Open Street Map(試験環境img.opf-dev.jp)'
+                    , ext: 'png', min: 0, max: 18, discription: 'Open Street Map(試験環境img.opf-dev.jp)'
                     , attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 },
                 osm_3dopf: {
@@ -70,7 +75,7 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                 // Open Street Map
                 osm: {
                     url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 2, max: 17, discription: 'Open Street Map(本家)'
+                    , ext: 'png', min: 2, max: 17 , discription: 'Open Street Map(本家)'
                     , attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 },
                 // 国土地理院
@@ -81,7 +86,7 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                 },
                 gsi_std: {
                     url: 'http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 2, max: 17, discription: '標準地図(地理院地図)'
+                    , ext: 'png', min: 0, max: 17, discription: '標準地図(地理院地図)'
                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_ccm1: {
@@ -91,22 +96,22 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                 },
                 gsi_lakedata: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/lakedata/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 5, max: 15, discription: '湖沼データ(地理院地図)'
+                    , ext: 'png', min: 2, max: 18, discription: '湖沼データ(地理院地図)'
                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_afm: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/afm/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 5, max: 15, discription: '活断層図(地理院地図)'
+                    , ext: 'png', min: 0, max: 16, discription: '活断層図(地理院地図)'
                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_lcmfc2: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/lcmfc2/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 5, max: 15, discription: '治水地形分類図(地理院地図)'
+                    , ext: 'png', min: 5, max: 16, discription: '治水地形分類図(地理院地図)'
                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_lum4bl_capital: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/lum4bl_capital1994/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 5, max: 15, discription: '宅地利用動向調査-首都圏(地理院地図)'
+                    , ext: 'png', min: 1, max: 16, discription: '宅地利用動向調査-首都圏(地理院地図)'
                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_relief: {
@@ -116,17 +121,17 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
                 },
                 gsi_anaglyphmap_gray: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/anaglyphmap_gray/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 5, max: 15, discription: 'アナグリフ2-16(地理院地図)'
+                    , ext: 'png', min: 2, max: 16, discription: 'アナグリフ2-16(地理院地図)'
                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_gmld_ptc2: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/gmld_ptc2/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 5, max: 15, discription: '植生（樹木被覆率）0-7(地理院地図)'
+                    , ext: 'png', min: 0, max: 7, discription: '植生（樹木被覆率）0-7(地理院地図)'
                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 gsi_jikizu2015_chijiki_d: {
                     url: 'https://cyberjapandata.gsi.go.jp/xyz/jikizu2015_chijiki_d/{z}/{x}/{y}.png'
-                    , ext: 'png', min: 5, max: 15, discription: '磁気図4-8(地理院地図)'
+                    , ext: 'png', min: 4, max: 13, discription: '磁気図4-8(地理院地図)'
                     , attribution: '<a href="http://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>'
                 },
                 // Esri
@@ -183,14 +188,15 @@ var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwd
             if (!type)
                 return;
             this.mapkey = key
-            this.discription = type.discription
+            this.discription = type.discription;// + ' zoom:' + type.min + '-' + type.max;
             var url = type.url;
             var options = L.setOptions(this, {
                 attribution: type.attribution,
-                //minZoom: type.min,
-                //maxZoom: type.min,
-                //maxNativeZoom: type.max,
-                errorTileUrl: 'img/nodata.gif'
+                minZoom: 0,
+                maxZoom: 18,
+                //minNativeZoom: type.min,//近似値で拡大で縮小。設定すると処理が重くなる
+                maxNativeZoom: type.max,//近似値で拡大
+                //errorTileUrl: '../images/impjson.jpg'
             });
             L.TileLayer.prototype.initialize.call(this, url, options);
         } //end init
