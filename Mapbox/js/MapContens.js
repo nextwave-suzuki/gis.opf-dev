@@ -1,4 +1,4 @@
-var mapbox_token = 'pk.eyJ1IjoiYml0c3RhciIsImEiOiJjamxocnFlaW8xbHAwM3FyMDZ3aGFuNW44In0.gIkskXNJA2DsHir4jveciw';
+var mapbox_token = 'pk.eyJ1Ijoic3V6dWtpdGFrYWZ1bWkiLCJhIjoiY2pqZjczMHgzMnN1cjNwdGVlanplajlvbCJ9.E2PUAt5YLri8Cy-JH_QFZw';
 
 /**** 試験環境タイルサーバー***/
 /*## img.opf-dev
